@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "31016817224",
+    "project_id": "tech-challenge-fase-3-abc",
+    "storage_bucket": "tech-challenge-fase-3-abc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31016817224:android:76615c352c79b3a5173e7d",
+        "android_client_info": {
+          "package_name": "com.challengecodes.tech_challenge_fase_3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA93c_lCcQig3Ou89G1yAcBHW15CKnj_P4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
