@@ -1,3 +1,5 @@
+import 'package:bytebank/widgets/grid.dart';
+import 'package:bytebank/widgets/paginated-grid.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart'; // Import Lottie package
 import 'package:provider/provider.dart';
@@ -7,7 +9,31 @@ import '../widgets/button.dart';
 import '../utils/constants.dart';
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({super.key});
+  final List<Map<String, dynamic>> userData = [
+    {"id": 1, "name": "John Doe", "email": "john@example.com"},
+    {"id": 2, "name": "Jane Smith", "email": "jane@example.com"},
+    {"id": 3, "name": "Bob Johnson", "email": "bob@example.com"},
+  ];
+  final List<Map<String, dynamic>> users = [
+    {"ID": 1, "Name": "Alice Brown", "Email": "alice@example.com"},
+    {"ID": 2, "Name": "Bob Smith", "Email": "bob@example.com"},
+    {"ID": 3, "Name": "Charlie Johnson", "Email": "charlie@example.com"},
+    {"ID": 4, "Name": "David Lee", "Email": "david@example.com"},
+  ];
+
+  void _edit(Map<String, dynamic> user) {
+    print("Edit user: ${user["Name"]}");
+  }
+
+  void _view(Map<String, dynamic> user) {
+    print("View user: ${user["Name"]}");
+  }
+
+  void _delete(Map<String, dynamic> user) {
+    print("Delete user: ${user["Name"]}");
+  }
+
+  DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -115,43 +141,69 @@ class DashboardPage extends StatelessWidget {
               ],
             ),
 
-            // Add Lottie Animation
-            Lottie.asset(
-              'lib/assets/animations/financial_animation.json', // Path to your JSON file
-              width: 200,
-              height: 200,
-              fit: BoxFit.fill, // Adjust the fit of the animation
-            ),
+            // Wrap(
+            //   children: [GridScreen(data: userData)],
+            // ),
 
-            SizedBox(height: 20), // Add spacing between the animation and chart
+            // Wrap(
+            //   children: [
+            //     DynamicDataTable(
+            //       data: users,
+            //       columnNames: ["ID", "Name", "Email"], // Dynamic Columns
+            //       onEdit: _edit,
+            //       onView: _view,
+            //       onDelete: _delete,
+            //     )
+            //   ],
+            // ),
 
-            // Financial Chart
             Expanded(
-              child: Consumer<TransactionProvider>(
-                builder: (context, provider, child) {
-                  if (provider.transactions.isEmpty) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-
-                  // Create chart data from transaction data
-                  List<ChartData> chartData = provider.transactions
-                      .map((tx) => ChartData(tx.date, tx.amount))
-                      .toList();
-
-                  return SfCartesianChart(
-                    primaryXAxis: DateTimeAxis(),
-                    primaryYAxis: NumericAxis(),
-                    series: <CartesianSeries>[
-                      LineSeries<ChartData, DateTime>(
-                        dataSource: chartData,
-                        xValueMapper: (ChartData data, _) => data.date,
-                        yValueMapper: (ChartData data, _) => data.amount,
-                      ),
-                    ],
-                  );
-                },
+              child: DynamicDataTable(
+                data: users,
+                columnNames: ["ID", "Name", "Email"], // Dynamic Columns
+                onEdit: _edit,
+                onView: _view,
+                onDelete: _delete,
               ),
             ),
+
+            // // Add Lottie Animation
+            // Lottie.asset(
+            //   'lib/assets/animations/financial_animation.json', // Path to your JSON file
+            //   width: 200,
+            //   height: 200,
+            //   fit: BoxFit.fill, // Adjust the fit of the animation
+            // ),
+
+            // SizedBox(height: 20), // Add spacing between the animation and chart
+
+            // // Financial Chart
+            // Expanded(
+            //   child: Consumer<TransactionProvider>(
+            //     builder: (context, provider, child) {
+            //       if (provider.transactions.isEmpty) {
+            //         return Center(child: CircularProgressIndicator());
+            //       }
+
+            //       // Create chart data from transaction data
+            //       List<ChartData> chartData = provider.transactions
+            //           .map((tx) => ChartData(tx.date, tx.amount))
+            //           .toList();
+
+            //       return SfCartesianChart(
+            //         primaryXAxis: DateTimeAxis(),
+            //         primaryYAxis: NumericAxis(),
+            //         series: <CartesianSeries>[
+            //           LineSeries<ChartData, DateTime>(
+            //             dataSource: chartData,
+            //             xValueMapper: (ChartData data, _) => data.date,
+            //             yValueMapper: (ChartData data, _) => data.amount,
+            //           ),
+            //         ],
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),
