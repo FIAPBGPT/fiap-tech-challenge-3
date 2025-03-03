@@ -1,3 +1,4 @@
+import 'package:bytebank/pages/splash_screen.dart';
 import 'package:bytebank/pages/dashboard.dart';
 import 'package:bytebank/pages/sign_in_screen.dart';
 import 'package:bytebank/pages/sign_up_screen.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/sign-in',
+        // home: DashboardPage(),
+        home: SplashScreen(),
         routes: {
           '/sign-in': (context) => SignInScreen(),
           '/sign-up': (context) => SignUpScreen(),

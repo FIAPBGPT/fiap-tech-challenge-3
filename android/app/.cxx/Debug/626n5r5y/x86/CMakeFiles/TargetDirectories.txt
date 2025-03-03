@@ -1,0 +1,2 @@
+D:/Malu/FIAP/fiap-tech-challenge-3/android/app/.cxx/Debug/626n5r5y/x86/CMakeFiles/edit_cache.dir
+D:/Malu/FIAP/fiap-tech-challenge-3/android/app/.cxx/Debug/626n5r5y/x86/CMakeFiles/rebuild_cache.dir
