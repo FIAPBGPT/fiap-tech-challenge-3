@@ -24,7 +24,7 @@ class _SignInScreenState extends State<SignInScreen> {
         password: _passwordController.text,
       );
 
-      Navigator.pushReplacementNamed(context, Routes.imageGallery);
+      Navigator.pushReplacementNamed(context, Routes.transactions);
     } catch (e) {
       setState(() {
         _errorMessage = e.toString();
