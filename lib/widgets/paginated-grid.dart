@@ -7,7 +7,8 @@ class DynamicDataTable extends StatefulWidget {
   final void Function(Map<String, dynamic>)? onView;
   final void Function(Map<String, dynamic>)? onDelete;
 
-  DynamicDataTable({
+  const DynamicDataTable({
+    super.key,
     required this.data,
     required this.columnNames,
     this.onEdit,
@@ -22,7 +23,7 @@ class DynamicDataTable extends StatefulWidget {
 class _DynamicDataTableState extends State<DynamicDataTable> {
   late List<Map<String, dynamic>> _filteredData;
   String _searchQuery = "";
-  int _rowsPerPage = 5;
+  final int _rowsPerPage = 5;
 
   @override
   void initState() {

@@ -11,14 +11,14 @@ class CustomButton extends StatelessWidget {
   final bool iconOnRight;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.type = ButtonType.elevated, // Default type is ElevatedButton
     this.color,
     this.icon, // Default is null (no icon)
     this.iconOnRight = false, // Default: Icon on the left
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

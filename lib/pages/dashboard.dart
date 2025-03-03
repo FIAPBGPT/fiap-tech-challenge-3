@@ -1,10 +1,6 @@
-import 'package:bytebank/widgets/grid.dart';
 import 'package:bytebank/widgets/paginated-grid.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart'; // Import Lottie package
-import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import '../providers/transaction.provider.dart';
+// Import Lottie package
 import '../widgets/button.dart';
 import '../utils/constants.dart';
 

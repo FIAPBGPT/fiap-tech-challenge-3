@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class GridScreen extends StatefulWidget {
   final List<Map<String, dynamic>> data;
 
-  GridScreen({required this.data});
+  const GridScreen({super.key, required this.data});
 
   @override
   _GridScreenState createState() => _GridScreenState();
