@@ -1,5 +1,7 @@
 import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/pages/dashboard.dart';
+import 'package:bytebank/utils/constants.dart';
+import 'package:bytebank/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class LoginDialog extends StatefulWidget {
@@ -48,10 +50,16 @@ class _LoginDialogState extends State<LoginDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Login'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Image.asset('lib/assets/login-form-image.png', width: 150),
+          SizedBox(height: 20),
+          Text(
+            'Login!',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20),
           TextField(
             controller: _emailController,
             decoration: InputDecoration(labelText: 'Email'),
@@ -59,7 +67,7 @@ class _LoginDialogState extends State<LoginDialog> {
           ),
           TextField(
             controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
+            decoration: InputDecoration(labelText: 'Senha'),
             obscureText: true,
           ),
           if (_errorMessage != null)
@@ -77,10 +85,17 @@ class _LoginDialogState extends State<LoginDialog> {
           onPressed: () => Navigator.of(context).pop(), // Close modal
           child: Text('Cancelar'),
         ),
-        ElevatedButton(
-          onPressed: _isLoading ? null : _handleLogin,
-          child: _isLoading ? CircularProgressIndicator() : Text('Login'),
+        // ElevatedButton(
+        //   onPressed: _isLoading ? null : () => _handleLogin(),
+        //   child: _isLoading ? CircularProgressIndicator() : Text('Criar conta'),
+        // ),
+        CustomButton(
+          text: _isLoading ? CircularProgressIndicator() : 'Criar conta',
+          onPressed: _isLoading ? null : () => _handleLogin(),
+          type: ButtonType.elevated,
+          color: AppConstants.baseOrangeBytebank,
         ),
+        SizedBox(height: 10),
       ],
     );
   }

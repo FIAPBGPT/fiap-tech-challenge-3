@@ -1,6 +1,8 @@
 import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/dialogs/login.dialog.dart';
 import 'package:bytebank/dialogs/register.dialog.dart';
+import 'package:bytebank/utils/constants.dart';
+import 'package:bytebank/widgets/button.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -34,15 +36,24 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           Text('Bem vindo ao ByteBank App'),
           SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () => _showLoginDialog(context),
-            child: Text('Login'),
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () => _showRegisterDialog(context),
-            child: Text('Cadastrar'),
-          ),
+          Row(
+            children: [
+              CustomButton(
+                text: 'Já tenho conta',
+                onPressed: () => _showLoginDialog(context),
+                type: ButtonType.elevated,
+                color: AppConstants.baseBlackBytebank,
+              ),
+              SizedBox(height: 16),
+              CustomButton(
+                text: 'Abrir conta',
+                onPressed: () => _showRegisterDialog(context),
+                type: ButtonType.outlined,
+                color: AppConstants.baseBlackBytebank,
+              ),
+              SizedBox(height: 16),
+            ],
+          )
         ],
       ),
     );

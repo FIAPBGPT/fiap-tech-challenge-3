@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'dart:async'; // For the delay
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -13,8 +15,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    // Wait for 3 seconds, then navigate to HomePage
-    Timer(Duration(seconds: 3), () {
+    // Wait for 4 seconds, then navigate to LoginPage
+    Timer(Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginPage()),
@@ -30,7 +32,11 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('lib/assets/image.png', width: 150), // Your logo
+            Image.asset('lib/assets/logo.png', width: 150), // Your logo
+            SizedBox(height: 20),
+            Text(AppConstants.appDev,
+                style:
+                    TextStyle(fontSize: 16, color: Colors.white)), // App Devs
             SizedBox(height: 20),
             CircularProgressIndicator(), // Loading indicator
           ],

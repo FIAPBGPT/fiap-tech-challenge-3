@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 enum ButtonType { elevated, outlined, text, icon }
 
 class CustomButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
+  final text;
+  final onPressed;
   final ButtonType type; // Defines button type
   final Color? color; // Custom button color
   final IconData? icon; // Optional icon parameter

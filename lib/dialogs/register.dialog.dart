@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 class RegisterDialog extends StatefulWidget {
+  const RegisterDialog({super.key});
+
   @override
   _RegisterDialogState createState() => _RegisterDialogState();
 }

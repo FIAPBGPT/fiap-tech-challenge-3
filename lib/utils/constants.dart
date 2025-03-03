@@ -32,6 +32,7 @@ class AppConstants {
   static const EdgeInsets pagePadding = EdgeInsets.all(16.0);
 
   // Other app constants
-  static const String appName = "Bank Transactions";
-  static const String welcomeMessage = "Welcome to your Dashboard!";
+  static const String appName = "Bytebank";
+  static const String welcomeMessage = "Bem vindo(a) ao Bytebank!";
+  static const String appDev = "Desenvolvido pelo melhor grupo de todos :)!";
 }
