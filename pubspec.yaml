@@ -43,6 +43,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   image_picker: ^1.1.2
   firebase_core: ^3.12.0
+  firebase_auth: ^5.5.1
 
   # dependency_overrides:
   # syncfusion_flutter_charts:
@@ -86,6 +87,7 @@ flutter:
     - lib/assets/logo.png
     - lib/assets/login-form-image.png
     - lib/assets/animations/financial_animation.json
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
