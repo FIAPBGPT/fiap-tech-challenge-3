@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         // home: DashboardPage(),
         home: SplashScreen(),
         routes: {
-          '/sign-in': (context) => SignInScreen(),
+          // '/sign-in': (context) => SignInScreen(),
           '/sign-up': (context) => SignUpScreen(),
           '/transactions': (context) => TransactionsPage(),
         },

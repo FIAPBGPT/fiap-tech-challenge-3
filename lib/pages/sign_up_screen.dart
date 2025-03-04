@@ -1,6 +1,9 @@
-import 'package:bytebank/app_colors.dart';
-import 'package:bytebank/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:bytebank/routes.dart';
+import 'package:bytebank/config/auth_service.dart';
+import 'package:bytebank/pages/sign_in_screen.dart';
+import 'package:bytebank/utils/constants.dart';
+import 'package:dio/dio.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -11,12 +14,35 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final Dio dio = Dio();
+  final AuthService authService = AuthService();
 
   String _errorMessage = '';
   bool _termsAccepted = false;
+  bool _isLoading = false;
+
+  // void _register() async {
+  //   if (!_termsAccepted) {
+  //     setState(() => _errorMessage = 'É necessário aceitar o termos!');
+
+  //     return;
+  //   }
+
+  //   try {
+  //     await _auth.createUserWithEmailAndPassword(
+  //       email: _emailController.text,
+  //       password: _passwordController.text,
+  //     );
+  //   } catch (e) {
+  //     setState(() {
+  //       _errorMessage = e.toString();
+  //     });
+  //   }
+  // }
 
   void _register() async {
     if (!_termsAccepted) {
@@ -24,23 +50,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       return;
     }
+    setState(() => _isLoading = true);
 
     try {
-      await _auth.createUserWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
+      Response response = await dio.post(
+        'http://10.0.2.2:5000/api/users',
+        data: {
+          'username': _nameController.text,
+          'email': _emailController.text,
+          'password': _passwordController.text,
+        },
       );
+
+      if (response.statusCode == 201) {
+        // Show a success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Cadastro realizado com sucesso!')),
+        );
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => SignInScreen(authService: authService)),
+          (route) => false, // Removes all previous routes
+        );
+      } else {
+        print('Erro ao cadastrar usuário: ${response.statusMessage}');
+      }
     } catch (e) {
-      setState(() {
-        _errorMessage = e.toString();
-      });
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text('Erro ao registrar o usuário. Tente novamente.')),
+      );
+    } finally {
+      setState(() => _isLoading = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppConstants.background,
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Center(
@@ -59,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Text(
                   'Preencha os campos abaixo para cria a sua conta corrente.',
                   style: TextStyle(
-                    color: AppColors.primary,
+                    color: AppConstants.primary,
                     fontSize: 31,
                     fontWeight: FontWeight.w700,
                   ),
@@ -75,31 +125,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Text(
                       'Nome',
                       style: TextStyle(
-                        color: AppColors.primary,
+                        color: AppConstants.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 21,
                       ),
                     ),
                     SizedBox(height: 6),
                     TextField(
-                      controller: _emailController,
+                      controller: _nameController,
                       decoration: InputDecoration(
                         labelText: 'Digite seu nome completo',
                         filled: true,
-                        fillColor: AppColors.fieldsBackround,
+                        fillColor: AppConstants.fieldsBackround,
                         prefixIcon: Icon(
                           Icons.person,
-                          color: AppColors.primary,
+                          color: AppConstants.primary,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(9),
                           borderSide: BorderSide(
-                            color: AppColors.fieldsBorders,
+                            color: AppConstants.fieldsBorders,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColors.link,
+                            color: AppConstants.link,
                           ),
                         ),
                       ),
@@ -117,7 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Text(
                       'E-mail',
                       style: TextStyle(
-                        color: AppColors.primary,
+                        color: AppConstants.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 21,
                       ),
@@ -128,19 +178,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: InputDecoration(
                         labelText: 'Digite seu e-mail',
                         filled: true,
-                        fillColor: AppColors.fieldsBackround,
+                        fillColor: AppConstants.fieldsBackround,
                         prefixIcon: Icon(
                           Icons.email,
-                          color: AppColors.primary,
+                          color: AppConstants.primary,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(9),
                           borderSide:
-                              BorderSide(color: AppColors.fieldsBorders),
+                              BorderSide(color: AppConstants.fieldsBorders),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColors.link,
+                            color: AppConstants.link,
                           ),
                         ),
                       ),
@@ -158,7 +208,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Text(
                       'Senha',
                       style: TextStyle(
-                        color: AppColors.primary,
+                        color: AppConstants.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 21,
                       ),
@@ -169,19 +219,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       decoration: InputDecoration(
                         labelText: 'Digite sua senha',
                         filled: true,
-                        fillColor: AppColors.fieldsBackround,
+                        fillColor: AppConstants.fieldsBackround,
                         prefixIcon: Icon(
                           Icons.password,
-                          color: AppColors.primary,
+                          color: AppConstants.primary,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(9),
                           borderSide:
-                              BorderSide(color: AppColors.fieldsBorders),
+                              BorderSide(color: AppConstants.fieldsBorders),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColors.link,
+                            color: AppConstants.link,
                           ),
                         ),
                       ),
@@ -199,7 +249,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Checkbox(
                       checkColor: Colors.white,
                       value: _termsAccepted,
-                      activeColor: AppColors.link,
+                      activeColor: AppConstants.link,
                       onChanged: (bool? value) {
                         setState(() => _termsAccepted = value!);
                       },
@@ -233,7 +283,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 // Submit button
                 ElevatedButton(
-                  onPressed: _register,
+                  onPressed: _isLoading ? null : () => _register,
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     padding: EdgeInsets.symmetric(
@@ -243,15 +293,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9),
                     ),
-                    backgroundColor: AppColors.submitButton,
+                    backgroundColor: AppConstants.submitButton,
                   ),
-                  child: Text(
-                    'Criar conta',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: AppColors.submitButtonText,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? CircularProgressIndicator()
+                      : Text(
+                          'Criar conta',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: AppConstants.submitButtonText,
+                          ),
+                        ),
                 ),
 
                 // Link to the Sign In Page
@@ -261,7 +313,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     'Fazer login',
                     style: TextStyle(
                       fontSize: 15,
-                      color: AppColors.link,
+                      color: AppConstants.link,
                     ),
                   ),
                 )
