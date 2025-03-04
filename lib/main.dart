@@ -1,3 +1,4 @@
+import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/pages/splash_screen.dart';
 import 'package:bytebank/pages/dashboard.dart';
 import 'package:bytebank/pages/sign_in_screen.dart';
@@ -16,22 +17,23 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => TransactionProvider(),
       child: MaterialApp(
-        title: 'Bank Transactions',
+        title: 'Bytebank',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // home: DashboardPage(),
         home: SplashScreen(),
         routes: {
-          // '/sign-in': (context) => SignInScreen(),
+          '/sign-in': (context) => SignInScreen(authService: authService),
           '/sign-up': (context) => SignUpScreen(),
+          '/dashboard': (context) => DashboardPage(),
           '/transactions': (context) => TransactionsPage(),
         },
       ),

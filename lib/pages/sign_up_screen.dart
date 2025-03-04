@@ -18,12 +18,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
   final Dio dio = Dio();
   final AuthService authService = AuthService();
 
   String _errorMessage = '';
   bool _termsAccepted = false;
-  bool _isLoading = false;
 
   // void _register() async {
   //   if (!_termsAccepted) {
@@ -45,12 +45,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   // }
 
   void _register() async {
+    print(_isLoading);
+    setState(() => _isLoading = true);
     if (!_termsAccepted) {
+      setState(() => _isLoading = false);
       setState(() => _errorMessage = 'É necessário aceitar o termos!');
 
       return;
     }
-    setState(() => _isLoading = true);
 
     try {
       Response response = await dio.post(
@@ -107,7 +109,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 // Title
                 Text(
-                  'Preencha os campos abaixo para cria a sua conta corrente.',
+                  'Preencha os campos abaixo para criar a sua conta corrente.',
                   style: TextStyle(
                     color: AppConstants.primary,
                     fontSize: 31,
@@ -283,7 +285,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                 // Submit button
                 ElevatedButton(
-                  onPressed: _isLoading ? null : () => _register,
+                  onPressed: _isLoading ? null : () => _register(),
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     padding: EdgeInsets.symmetric(
