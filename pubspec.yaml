@@ -88,7 +88,8 @@ flutter:
     - lib/assets/login-form-image.png
     - lib/assets/animations/financial_animation.json
     - assets/images/
-
+    - lib/assets/logo_home.png
+    - lib/assets/banner.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

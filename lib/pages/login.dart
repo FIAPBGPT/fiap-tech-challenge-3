@@ -29,14 +29,33 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      appBar: _buildAppBar(),
+      body: Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Color(0xFF004D61), Color(0xFFFFFFFF)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: Column(
         children: [
-          Text('Bem vindo ao ByteBank App'),
+          SizedBox(height: 30),
+          Text(
+            'Experimente mais liberdade no controle da sua vida financeira. Crie sua conta com a gente!',
+            style: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            textAlign: TextAlign.center,
+          ),
           SizedBox(height: 16),
+          SizedBox(width: 16),
+          Image.asset('lib/assets/banner.png', height: 300),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
                 text: 'Já tenho conta',
@@ -45,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                 color: AppConstants.baseBlackBytebank,
               ),
               SizedBox(height: 16),
+              SizedBox(width: 16),
               CustomButton(
                 text: 'Abrir conta',
                 onPressed: () => _showRegisterDialog(context),
@@ -54,6 +74,23 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 16),
             ],
           )
+        ],
+      ),
+    ));
+  }
+
+  
+   AppBar _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.black,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.menu, color: Colors.green),
+            onPressed: () => print('Menu button clicked'),
+          ),
+          Image.asset('lib/assets/logo_home.png', height: 50),
         ],
       ),
     );
