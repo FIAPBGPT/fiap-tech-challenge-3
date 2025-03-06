@@ -1,18 +1,12 @@
-import 'package:bytebank/pages/splash_screen.dart';
-import 'package:bytebank/pages/dashboard.dart';
-import 'package:bytebank/pages/sign_in_screen.dart';
-import 'package:bytebank/pages/sign_up_screen.dart';
+import 'package:bytebank/pages/investimentos.dart';
+import 'package:bytebank/pages/main_dashboard.dart';
 import 'package:bytebank/pages/transactions.dart';
-import 'package:bytebank/providers/transaction.provider.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:bytebank/utils/app_routes.dart';
+import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-
-  runApp(MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,21 +14,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TransactionProvider(),
-      child: MaterialApp(
-        title: 'Bank Transactions',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        // home: DashboardPage(),
-        home: SplashScreen(),
-        routes: {
-          '/sign-in': (context) => SignInScreen(),
-          '/sign-up': (context) => SignUpScreen(),
-          '/transactions': (context) => TransactionsPage(),
-        },
-      ),
+    return MaterialApp(
+      title: "ByteBank",
+      theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.light(
+            primary: AppConstants.baseBlueBytebank,
+            secondary: AppConstants.baseOrangeBytebank,
+            tertiary: AppConstants.baseBackgroundBytebank,
+          ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: AppConstants.baseBlueBytebank,
+            foregroundColor: AppConstants.baseOrangeBytebank,
+          )),
+      routes: {
+        AppRoutes.TRANSACOES: (context) => TransactionsPage(),
+        AppRoutes.INVESTIMENTOS: (context) => InvestmentsPage(),
+        AppRoutes.OUTROS: (context) => InvestmentsPage(),
+      },
+      // home: const AppBarComponent(),
+      home: MainDashboard(),
     );
   }
 }
