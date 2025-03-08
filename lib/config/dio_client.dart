@@ -1,8 +1,10 @@
+import 'package:bytebank/utils/constants.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioClient {
-  final Dio _dio = Dio(BaseOptions(baseUrl: 'http://10.0.2.2:5000/api/users'));
+  final Dio _dio =
+      Dio(BaseOptions(baseUrl: '${AppConstants.apiBaseUrl}/api/users'));
 
   DioClient() {
     _dio.interceptors.add(InterceptorsWrapper(
