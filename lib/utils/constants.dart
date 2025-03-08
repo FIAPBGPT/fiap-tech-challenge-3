@@ -9,6 +9,7 @@ class AppConstants {
   static const Color baseGreenBytebank = Color(0xff47a138);
   static const Color baseOrangeBytebank = Color(0xffff5031);
   static const Color baseBlackBytebank = Color(0xff000000);
+  static const Color baseDarkGreyBytebank = Color(0xffcbcbcb);
 
   static const Color primary = Colors.black;
   static const Color background = Color(0xFFF8F8F8);

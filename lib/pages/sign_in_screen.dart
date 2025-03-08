@@ -1,41 +1,56 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bytebank/config/auth_service.dart';
+import 'package:bytebank/pages/dashboard.dart';
+import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
-import '../app_colors.dart';
 import '../routes.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+  final AuthService authService;
+
+  const SignInScreen({super.key, required this.authService});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   String _errorMessage = '';
 
-  void _login() async {
-    try {
-      await _auth.signInWithEmailAndPassword(
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
+  Future<void> _handleLogin() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = '';
+    });
 
-      Navigator.pushReplacementNamed(context, Routes.transactions);
-    } catch (e) {
-      setState(() {
-        _errorMessage = e.toString();
-      });
+    bool success = await widget.authService.login(
+      _emailController.text,
+      _passwordController.text,
+    );
+
+    setState(() => _isLoading = false);
+
+    if (success) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login Realizado com Sucesso!')),
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => DashboardPage()),
+        (route) => false, // Removes all previous routes
+      );
+    } else {
+      setState(() => _errorMessage = 'Email ou Senha inválido(a).');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: AppConstants.background,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Center(
@@ -54,7 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 Text(
                   'Login',
                   style: TextStyle(
-                    color: AppColors.primary,
+                    color: AppConstants.primary,
                     fontSize: 33,
                     fontWeight: FontWeight.w700,
                   ),
@@ -70,7 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Text(
                       'E-mail',
                       style: TextStyle(
-                        color: AppColors.primary,
+                        color: AppConstants.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 21,
                       ),
@@ -81,21 +96,21 @@ class _SignInScreenState extends State<SignInScreen> {
                       decoration: InputDecoration(
                         labelText: 'Digite seu e-mail',
                         filled: true,
-                        fillColor: AppColors.fieldsBackround,
-                        focusColor: AppColors.link,
+                        fillColor: AppConstants.fieldsBackround,
+                        focusColor: AppConstants.link,
                         prefixIcon: Icon(
                           Icons.email,
-                          color: AppColors.primary,
+                          color: AppConstants.primary,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(9),
                           borderSide: BorderSide(
-                            color: AppColors.fieldsBorders,
+                            color: AppConstants.fieldsBorders,
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColors.link,
+                            color: AppConstants.link,
                           ),
                         ),
                       ),
@@ -113,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     Text(
                       'Senha',
                       style: TextStyle(
-                        color: AppColors.primary,
+                        color: AppConstants.primary,
                         fontWeight: FontWeight.bold,
                         fontSize: 21,
                       ),
@@ -124,19 +139,19 @@ class _SignInScreenState extends State<SignInScreen> {
                       decoration: InputDecoration(
                         labelText: 'Digite sua senha',
                         filled: true,
-                        fillColor: AppColors.fieldsBackround,
+                        fillColor: AppConstants.fieldsBackround,
                         prefixIcon: Icon(
                           Icons.password,
-                          color: AppColors.primary,
+                          color: AppConstants.primary,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(9),
                           borderSide:
-                              BorderSide(color: AppColors.fieldsBorders),
+                              BorderSide(color: AppConstants.fieldsBorders),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: AppColors.link,
+                            color: AppConstants.link,
                           ),
                         ),
                       ),
@@ -155,10 +170,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         'Esqueci a senha!',
                         style: TextStyle(
                           fontSize: 21,
-                          color: AppColors.link,
+                          color: AppConstants.link,
                           height: -1,
                           decoration: TextDecoration.underline,
-                          decorationColor: AppColors.link,
+                          decorationColor: AppConstants.link,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -185,7 +200,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                 // Sign In Submit Button
                 ElevatedButton(
-                  onPressed: _login,
+                  onPressed: _isLoading ? null : () => _handleLogin(),
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     padding: EdgeInsets.symmetric(
@@ -195,15 +210,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(9),
                     ),
-                    backgroundColor: AppColors.submitButton,
+                    backgroundColor: AppConstants.submitButton,
                   ),
-                  child: Text(
-                    'Entrar',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: AppColors.submitButtonText,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? CircularProgressIndicator()
+                      : Text(
+                          'Entrar',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: AppConstants.submitButtonText,
+                          ),
+                        ),
                 ),
 
                 // Link to the Sign Up Page
@@ -215,7 +232,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     'Crie uma conta',
                     style: TextStyle(
                       fontSize: 15,
-                      color: AppColors.link,
+                      color: AppConstants.link,
                     ),
                   ),
                 )
