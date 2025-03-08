@@ -47,3 +47,6 @@ android/app/.cxx
 
 # VS Code settings related
 .vscode
+
+# Environment Variables
+.env*

@@ -1,3 +1,4 @@
+import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -20,7 +21,7 @@ class _RegisterDialogState extends State<RegisterDialog> {
 
     try {
       Response response = await dio.post(
-        'http://10.0.2.2:5000/api/users',
+        '${AppConstants.apiBaseUrl}/api/users',
         data: {
           'username': nameController.text,
           'email': emailController.text,

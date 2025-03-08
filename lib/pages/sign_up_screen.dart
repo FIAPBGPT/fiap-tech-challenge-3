@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     try {
       Response response = await dio.post(
-        'http://10.0.2.2:5000/api/users',
+        '${AppConstants.apiBaseUrl}/api/users',
         data: {
           'username': _nameController.text,
           'email': _emailController.text,
