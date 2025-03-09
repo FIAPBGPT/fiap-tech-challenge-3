@@ -39,7 +39,9 @@ class _SignInScreenState extends State<SignInScreen> {
       );
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => DashboardPage()),
+        MaterialPageRoute(
+          builder: (context) => DashboardPage(),
+        ),
         (route) => false, // Removes all previous routes
       );
     } else {
