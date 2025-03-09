@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
         AppRoutes.INVESTIMENTOS: (context) => InvestmentsPage(),
         AppRoutes.OUTROS: (context) => InvestmentsPage(),
       },
-      // home: const AppBarComponent(),
       home: MainDashboard(),
     );
   }

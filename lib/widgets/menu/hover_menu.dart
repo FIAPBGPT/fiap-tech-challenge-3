@@ -36,7 +36,7 @@ class _HoverMenuState extends State<HoverMenu> {
         child: AnimatedContainer(
           width: 165,
           duration: const Duration(milliseconds: 150),
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           decoration: BoxDecoration(
               color: _isPressed ? Theme.of(context).colorScheme.tertiary : null,
               border: Border(

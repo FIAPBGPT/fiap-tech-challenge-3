@@ -46,6 +46,37 @@ class AppConstants {
     color: primary,
   );
 
+  static const TextStyle weatherTextStyle = TextStyle(
+    fontSize: 16,
+    fontFamily: "Inter",
+  );
+
+  static const TextStyle weatherSubtitStyle = TextStyle(
+    fontSize: 18,
+    shadows: [
+      Shadow(
+        color: Color(0x89000000),
+        offset: Offset(0, 0.1),
+        blurRadius: 1,
+      ),
+    ],
+    fontFamily: "Inter",
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle weatherTitStyle = TextStyle(
+    fontSize: 25,
+    shadows: [
+      Shadow(
+        color: Color(0x89000000),
+        offset: Offset(0, 0.3),
+        blurRadius: 1,
+      ),
+    ],
+    fontFamily: "Inter",
+    fontWeight: FontWeight.bold,
+  );
+
   // Default padding values
   static const EdgeInsets pagePadding = EdgeInsets.all(16.0);
 
