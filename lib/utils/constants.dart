@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppConstants {
+  // API
+  static String apiBaseUrl = dotenv.get(
+    'API_URL',
+    fallback: 'http://10.0.2.2:5000',
+  );
+
   // App colors
   static const Color primaryColor = Color(0xFF4CAF50); // Green color
   static const Color secondaryColor = Color(0xFF2196F3); // Blue color
