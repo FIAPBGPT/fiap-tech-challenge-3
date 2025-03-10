@@ -3,6 +3,7 @@ import 'package:bytebank/dialogs/register.dialog.dart';
 import 'package:bytebank/forms/transaction-form.dart';
 import 'package:bytebank/models/transaction.dart';
 import 'package:bytebank/widgets/paginated-grid.dart';
+import 'package:bytebank/widgets/statement.dart';
 import 'package:bytebank/widgets/transaction_card.dart';
 import 'package:flutter/material.dart';
 // Import Lottie package
@@ -186,6 +187,13 @@ class DashboardPage extends StatelessWidget {
                   //     },
                   //   ),
                   // ),
+
+                  /**
+                   * ---------------------------
+                   * The Statement Widget
+                   * ---------------------------
+                   */
+                  Statement()
                 ],
               ),
             ),

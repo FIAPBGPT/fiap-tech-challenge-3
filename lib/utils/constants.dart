@@ -19,7 +19,7 @@ class AppConstants {
   static const Color baseDarkGreyBytebank = Color(0xffcbcbcb);
 
   static const Color primary = Colors.black;
-  static const Color background = Color(0xFFF8F8F8);
+  static const Color background = Color(0xFFE4EDE3);
   static const Color fieldsBackround = Colors.white;
   static const Color fieldsBorders = Color(0xFFDEE9EA);
   static const Color link = Color(0xFF47A138);
@@ -27,6 +27,8 @@ class AppConstants {
   static const Color error = Colors.red;
   static const Color submitButton = Color(0xFFFF5031);
   static const Color submitButtonText = Colors.white;
+  static const Color additionalInfoColor = Color(0xFF8B8B8B);
+  static const Color cardLightBackground = Colors.white;
 
   // Text styles
   static const TextStyle headerTextStyle = TextStyle(
