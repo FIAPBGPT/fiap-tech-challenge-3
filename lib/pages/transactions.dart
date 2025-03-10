@@ -24,8 +24,12 @@ class TransactionsPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ElevatedButton(onPressed: () => _addTransaction(context), child: Text("Add Transaction")),
-                    ElevatedButton(onPressed: () => _filterTransactions(context), child: Text("Filter")),
+                    ElevatedButton(
+                        onPressed: () => _addTransaction(context),
+                        child: Text("Add Transaction")),
+                    ElevatedButton(
+                        onPressed: () => _filterTransactions(context),
+                        child: Text("Filter")),
                   ],
                 ),
               ),
@@ -36,10 +40,10 @@ class TransactionsPage extends StatelessWidget {
                   itemCount: provider.transactions.length,
                   itemBuilder: (context, index) {
                     Transaction tx = provider.transactions[index];
-                    return TransactionCard(
-                      transaction: tx,
-                      onDelete: () => provider.removeTransaction(tx.id),
-                    );
+                    // return TransactionCard(
+                    //   transaction: tx,
+                    //   onDelete: () => provider.removeTransaction(tx.id),
+                    // );
                   },
                 ),
               ),
@@ -60,7 +64,8 @@ class TransactionsPage extends StatelessWidget {
       date: DateTime.now(),
       receiptUrl: "",
     );
-    await Provider.of<TransactionProvider>(context, listen: false).addTransaction(newTx);
+    await Provider.of<TransactionProvider>(context, listen: false)
+        .addTransaction(newTx);
   }
 
   _filterTransactions(BuildContext context) {
