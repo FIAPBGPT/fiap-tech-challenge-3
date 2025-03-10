@@ -87,7 +87,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Color(0x974489FF),
-                        Colors.white,
+                        Color.fromARGB(218, 152, 233, 225),
                       ],
                     ),
                   ),
@@ -108,13 +108,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
     if (_isLoading) {
       return Center(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const CircularProgressIndicator(),
+          const CircularProgressIndicator(color: AppConstants.baseBlueBytebank),
           const SizedBox(height: 16),
           Text(
             'Obtendo informações meteorológicas...',
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: AppConstants.baseBlueBytebank,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -159,7 +159,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           'Nenhuma informação meteorológica disponível.',
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.primary,
+            color: AppConstants.baseBlueBytebank,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -183,14 +183,14 @@ class _WeatherWidgetState extends State<WeatherWidget> {
                   _currentWeather!.areaName ?? 'Localização desconhecida',
                   textAlign: TextAlign.center,
                   style: AppConstants.weatherTitStyle.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: AppConstants.baseBlueBytebank,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   _currentWeather!.country ?? '',
                   style: AppConstants.weatherSubtitStyle.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: AppConstants.baseBlueBytebank,
                   ),
                 ),
               ],
@@ -200,15 +200,13 @@ class _WeatherWidgetState extends State<WeatherWidget> {
               children: [
                 Text(
                   '${_currentWeather!.temperature?.celsius?.toStringAsFixed(1)}°C',
-                  style: AppConstants.weatherTitStyle.copyWith(
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
+                  style: AppConstants.weatherTitStyle
+                      .copyWith(color: AppConstants.baseBackgroundBytebank),
                 ),
                 Text(
                   _currentWeather!.weatherDescription ?? '',
-                  style: AppConstants.weatherSubtitStyle.copyWith(
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
+                  style: AppConstants.weatherSubtitStyle
+                      .copyWith(color: AppConstants.baseBackgroundBytebank),
                 ),
               ],
             ),
@@ -240,11 +238,12 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           alignment: Alignment.centerRight,
           child: TextButton.icon(
             onPressed: _loadWeatherData,
-            icon: const Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh,
+                color: AppConstants.baseBlueBytebank, size: 20),
             label: Text(
               'Atualizar',
               style: AppConstants.weatherTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.primary,
+                color: AppConstants.baseBlueBytebank,
                 fontWeight: FontWeight.bold,
                 fontSize: 14,
               ),
@@ -277,7 +276,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
           value,
           style: TextStyle(
             fontSize: 18,
-            color: Theme.of(context).colorScheme.primary,
+            color: AppConstants.baseBlueBytebank,
             fontWeight: FontWeight.bold,
           ),
         ),

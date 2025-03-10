@@ -1,3 +1,4 @@
+import 'package:bytebank/utils/constants.dart';
 import 'package:bytebank/widgets/menu/hover_menu.dart';
 import 'package:bytebank/utils/app_routes.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class DrawerComponent extends StatelessWidget {
               child: Container(
                   width: double.infinity,
                   padding: EdgeInsets.all(20),
-                  color: Theme.of(context).colorScheme.tertiary,
+                  color: AppConstants.baseBackgroundBytebank,
                   alignment: Alignment.topLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 50),

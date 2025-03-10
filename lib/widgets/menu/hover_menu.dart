@@ -38,11 +38,12 @@ class _HoverMenuState extends State<HoverMenu> {
           duration: const Duration(milliseconds: 150),
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           decoration: BoxDecoration(
-              color: _isPressed ? Theme.of(context).colorScheme.tertiary : null,
+              color:
+                  _isPressed ? const Color.fromARGB(255, 217, 228, 217) : null,
               border: Border(
                   bottom: _isPressed
                       ? BorderSide(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: AppConstants.baseOrangeBytebank,
                           width: 1.0,
                         )
                       : _getBorderBottom())),
@@ -53,7 +54,7 @@ class _HoverMenuState extends State<HoverMenu> {
                 widget.label,
                 style: AppConstants.menuTextStyle.copyWith(
                   color: _isPressed
-                      ? Theme.of(context).colorScheme.secondary
+                      ? AppConstants.baseOrangeBytebank
                       : AppConstants.menuTextStyle.color,
                 ),
                 textAlign: TextAlign.center,

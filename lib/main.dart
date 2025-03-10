@@ -1,7 +1,10 @@
 import 'package:bytebank/pages/investimentos.dart';
 import 'package:bytebank/pages/main_dashboard.dart';
+import 'package:bytebank/pages/sign_in_screen.dart';
+import 'package:bytebank/pages/sign_up_screen.dart';
+import 'package:bytebank/pages/splash_screen.dart';
 import 'package:bytebank/pages/transactions.dart';
-import 'package:bytebank/utils/app_routes.dart';
+import 'package:bytebank/routes.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -18,21 +21,18 @@ class MyApp extends StatelessWidget {
       title: "ByteBank",
       theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.light(
-            primary: AppConstants.baseBlueBytebank,
-            secondary: AppConstants.baseOrangeBytebank,
-            tertiary: AppConstants.baseBackgroundBytebank,
-          ),
           appBarTheme: AppBarTheme(
             backgroundColor: AppConstants.baseBlueBytebank,
             foregroundColor: AppConstants.baseOrangeBytebank,
           )),
       routes: {
-        AppRoutes.TRANSACOES: (context) => TransactionsPage(),
-        AppRoutes.INVESTIMENTOS: (context) => InvestmentsPage(),
-        AppRoutes.OUTROS: (context) => InvestmentsPage(),
+        Routes.signUp: (context) => SignUpScreen(),
+        Routes.signIn: (context) => SignInScreen(),
+        Routes.transactions: (context) => TransactionsPage(),
+        Routes.investimentos: (context) => InvestmentsPage(),
+        Routes.outros: (context) => InvestmentsPage(),
       },
-      home: MainDashboard(),
+      home: SplashScreen(),
     );
   }
 }
