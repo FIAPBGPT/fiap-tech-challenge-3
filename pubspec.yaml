@@ -89,6 +89,7 @@ flutter:
     - lib/assets/logo.png
     - lib/assets/login-form-image.png
     - lib/assets/animations/financial_animation.json
+    - lib/assets/images/balance_card.png
     - assets/images/
     - .env
 
