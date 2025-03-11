@@ -1,4 +1,4 @@
-import 'package:bytebank/pages/investimentos.dart';
+// import 'package:bytebank/pages/investimentos.dart';
 import 'package:bytebank/pages/main_dashboard.dart';
 import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/pages/splash_screen.dart';
@@ -44,12 +44,12 @@ class MyApp extends StatelessWidget {
         ),
         home: SplashScreen(),
         routes: {
-          Routes.signUp: (context) => SignUpScreen(),
+          Routes.dashboard: (context) => DashboardPage(),
           Routes.signIn: (context) => SignInScreen(authService: authService),
+          Routes.signUp: (context) => SignUpScreen(),
           Routes.transactions: (context) => TransactionsPage(),
-          Routes.investments: (context) => InvestmentsPage(),
-          Routes.outros: (context) => InvestmentsPage(),
-          '/dashboard': (context) => DashboardPage(),
+          // Routes.investments: (context) => InvestmentsPage(),
+          // Routes.outros: (context) => InvestmentsPage(),
         },
       ),
     );
