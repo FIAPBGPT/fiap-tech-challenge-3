@@ -1,12 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:bytebank/config/dio_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BalanceCard extends StatefulWidget {
-  final String name;
-  final double balance; // Novo parâmetro para o saldo
-
-  const BalanceCard({super.key, required this.name, required this.balance});
+  const BalanceCard({super.key});
 
   @override
   _BalanceCardState createState() => _BalanceCardState();
@@ -14,9 +14,49 @@ class BalanceCard extends StatefulWidget {
 
 class _BalanceCardState extends State<BalanceCard> {
   bool _isVisible = false; // Estado para controlar se o saldo está visível
+  final DioClient _dioClient = DioClient();
+  List<dynamic> _transactions = [];
+  late double _filteredTransactions;
+  late String? name = '';
+
+  Future<List<dynamic>> _loadTransactions() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('user_id');
+    name = prefs.getString('name');
+
+    Response response = await _dioClient.dio.get(
+      '/$userId/transactions',
+    );
+
+    return response.data['result'];
+  }
 
   @override
   Widget build(BuildContext context) {
+    double calculateBalance(List<Map<String, dynamic>> transactions) {
+      if (transactions.isEmpty) return 0.0;
+
+      List<Map<String, dynamic>> transactionsFiltered = transactions
+          .where((transaction) => transaction['transactionType'] != 'credito')
+          .toList();
+
+      double balance = transactionsFiltered.fold(0.0, (sum, transaction) {
+        int amountMultiplier =
+            transaction['transactionType'] == 'deposito' ? 1 : -1;
+        return sum + (transaction['amount'] * amountMultiplier);
+      });
+
+      return balance;
+    }
+
+    _loadTransactions().then((response) {
+      setState(() {
+        _transactions = response;
+        _filteredTransactions =
+            calculateBalance(_transactions.cast<Map<String, dynamic>>());
+      });
+    });
+
     // Inicializa a formatação de datas
     initializeDateFormatting('pt_BR', null);
 
@@ -29,7 +69,19 @@ class _BalanceCardState extends State<BalanceCard> {
       locale: 'pt_BR',
       symbol: 'R\$',
       decimalDigits: 2,
-    ).format(widget.balance);
+    ).format(_filteredTransactions);
+
+    String formatName(String? name) {
+      if (name == null || name.trim().isEmpty)
+        return ''; // Verifica se é nulo ou vazio
+      return name
+          .trim() // Remove espaços extras no início e no fim
+          .split(RegExp(r'\s+')) // Divide considerando múltiplos espaços
+          .map((word) => word.isNotEmpty
+              ? word[0].toUpperCase() + word.substring(1).toLowerCase()
+              : '')
+          .join(' '); // Junta as palavras formatadas
+    }
 
     // Valor exibido dependendo do estado de visibilidade
     String displayBalance = _isVisible
@@ -49,7 +101,7 @@ class _BalanceCardState extends State<BalanceCard> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            'Olá, ${widget.name}',
+            'Olá, ${formatName(name)}',
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -131,7 +183,7 @@ class _BalanceCardState extends State<BalanceCard> {
           // Adicionando a imagem abaixo do saldo
           const SizedBox(height: 16),
           Image.asset(
-            'lib/assets/images/balance_card.png', // Caminho para a imagem (adapte conforme o seu caso)
+            'lib/assets/images/balance_card.png',
             height: 200, // Tamanho da imagem
             fit: BoxFit.contain, // Como a imagem será ajustada
           ),
