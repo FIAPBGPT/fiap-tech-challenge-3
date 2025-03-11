@@ -1,6 +1,6 @@
+import 'package:bytebank/routes.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:bytebank/widgets/menu/hover_menu.dart';
-import 'package:bytebank/utils/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class DrawerComponent extends StatelessWidget {
@@ -36,19 +36,19 @@ class DrawerComponent extends StatelessWidget {
                         _navigateLink(
                             "Início",
                             () => Navigator.of(context)
-                                .pushReplacementNamed(AppRoutes.HOME)),
+                                .pushReplacementNamed(Routes.home)),
                         _navigateLink(
                             "Transações",
                             () => Navigator.of(context)
-                                .pushReplacementNamed(AppRoutes.TRANSACOES)),
+                                .pushReplacementNamed(Routes.transactions)),
                         _navigateLink(
                             "Investimentos",
                             () => Navigator.of(context)
-                                .pushReplacementNamed(AppRoutes.INVESTIMENTOS)),
+                                .pushReplacementNamed(Routes.investments)),
                         _navigateLink(
                             "Outros serviços",
                             () => Navigator.of(context)
-                                .pushReplacementNamed(AppRoutes.OUTROS)),
+                                .pushReplacementNamed(Routes.outros)),
                       ],
                     ),
                   )),
