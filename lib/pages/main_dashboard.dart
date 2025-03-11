@@ -11,7 +11,7 @@ class MainDashboard extends StatelessWidget {
         centerTitle: true,
         title: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
