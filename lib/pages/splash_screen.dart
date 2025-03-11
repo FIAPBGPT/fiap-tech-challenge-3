@@ -1,4 +1,6 @@
+import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/pages/login.dart';
+import 'package:bytebank/pages/sign_in_screen.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async'; // For the delay
@@ -11,6 +13,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final AuthService authService = AuthService();
   @override
   void initState() {
     super.initState();
@@ -19,7 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
       );
     });
   }
@@ -34,9 +39,13 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset('lib/assets/logo.png', width: 150), // Your logo
             SizedBox(height: 20),
-            Text(AppConstants.appDev,
-                style:
-                    TextStyle(fontSize: 16, color: Colors.white)), // App Devs
+            Text(
+              AppConstants.appDev,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ), // App Devs
             SizedBox(height: 20),
             CircularProgressIndicator(), // Loading indicator
           ],
