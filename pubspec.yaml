@@ -58,6 +58,7 @@ dependencies:
   #     ref: 15e3c4a95e3cf2e2393755bf5aa11c0206ed6dea #flutter/3.24
 
 dev_dependencies:
+  fl_chart: ^0.63.0
   flutter_test:
     sdk: flutter
 
