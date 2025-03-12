@@ -1,11 +1,14 @@
 import 'package:bytebank/utils/constants.dart';
+import 'package:bytebank/widgets/button.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
   final Function(String, double, DateTime) onSubmit;
+  final String? pageOrigin;
 
-  const TransactionForm({Key? key, required this.onSubmit}) : super(key: key);
+  const TransactionForm({Key? key, required this.onSubmit, this.pageOrigin})
+      : super(key: key);
 
   @override
   _TransactionFormState createState() => _TransactionFormState();
@@ -98,6 +101,19 @@ class _TransactionFormState extends State<TransactionForm> {
     }
   }
 
+  ableDisableDatePicker() {
+    if (widget.pageOrigin == 'dashboard') {
+      setState(() {
+        _isDatePickerEnabled = true;
+      });
+    } else {
+      setState(() {
+        _isDatePickerEnabled = false;
+        _selectedDate = DateTime.now();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -119,7 +135,7 @@ class _TransactionFormState extends State<TransactionForm> {
               });
             },
             decoration: InputDecoration(
-              labelText: "Transaction Type",
+              labelText: "Tipo de Transação",
               filled: true,
               fillColor: AppConstants.fieldsBackround,
               enabledBorder: OutlineInputBorder(
@@ -140,7 +156,7 @@ class _TransactionFormState extends State<TransactionForm> {
             controller: _amountController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: "Amount",
+              labelText: "Valor",
               filled: true,
               fillColor: AppConstants.fieldsBackround,
               enabledBorder: OutlineInputBorder(
@@ -157,8 +173,9 @@ class _TransactionFormState extends State<TransactionForm> {
             ),
             validator: (value) {
               if (value == null || value.isEmpty)
-                return "Please enter an amount";
-              if (double.tryParse(value) == null) return "Enter a valid number";
+                return "Por favor, informe um valor!";
+              if (double.tryParse(value) == null)
+                return "Informe um número válido!";
               return null;
             },
           ),
@@ -211,10 +228,27 @@ class _TransactionFormState extends State<TransactionForm> {
           ),
           SizedBox(height: 24),
           ElevatedButton(
-            onPressed: _isSubmitting ? null : _submitForm,
+            onPressed: _isSubmitting ? null : () => _submitForm(),
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              padding: EdgeInsets.symmetric(
+                vertical: 15,
+                horizontal: 80,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(9),
+              ),
+              backgroundColor: AppConstants.baseBlueBytebank,
+            ),
             child: _isSubmitting
-                ? CircularProgressIndicator(color: Colors.white)
-                : Text("Submit"),
+                ? CircularProgressIndicator()
+                : Text(
+                    'Concluir transação',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: AppConstants.submitButtonText,
+                    ),
+                  ),
           ),
         ],
       ),

@@ -138,7 +138,7 @@ class DashboardPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: 520,
+                    height: 480,
                     width: double.infinity,
                     child: TransactionCard(
                       title: 'Nova Transação',
