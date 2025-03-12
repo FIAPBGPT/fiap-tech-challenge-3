@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppConstants {
+  // API
+  static String apiBaseUrl = dotenv.get(
+    'API_URL',
+    fallback: 'http://10.0.2.2:5000',
+  );
+
   // App colors
   static const Color primaryColor = Color(0xFF4CAF50); // Green color
   static const Color secondaryColor = Color(0xFF2196F3); // Blue color
@@ -9,10 +16,11 @@ class AppConstants {
   static const Color baseGreenBytebank = Color(0xff47a138);
   static const Color baseOrangeBytebank = Color(0xffff5031);
   static const Color baseBlackBytebank = Color(0xff000000);
+  static const Color baseBackgroundBytebank = Color(0xffE4EDE3);
   static const Color baseDarkGreyBytebank = Color(0xffcbcbcb);
 
   static const Color primary = Colors.black;
-  static const Color background = Color(0xFFF8F8F8);
+  static const Color background = Color(0xFFE4EDE3);
   static const Color fieldsBackround = Colors.white;
   static const Color fieldsBorders = Color(0xFFDEE9EA);
   static const Color link = Color(0xFF47A138);
@@ -20,6 +28,8 @@ class AppConstants {
   static const Color error = Colors.red;
   static const Color submitButton = Color(0xFFFF5031);
   static const Color submitButtonText = Colors.white;
+  static const Color additionalInfoColor = Color(0xFF8B8B8B);
+  static const Color cardLightBackground = Colors.white;
 
   // Text styles
   static const TextStyle headerTextStyle = TextStyle(
@@ -37,6 +47,44 @@ class AppConstants {
   static const TextStyle bodyTextStyle = TextStyle(
     fontSize: 14,
     color: Colors.black87,
+  );
+
+  static const TextStyle menuTextStyle = TextStyle(
+    fontSize: 18,
+    fontFamily: "Inter",
+    fontWeight: FontWeight.w400,
+    color: primary,
+  );
+
+  static const TextStyle weatherTextStyle = TextStyle(
+    fontSize: 16,
+    fontFamily: "Inter",
+  );
+
+  static const TextStyle weatherSubtitStyle = TextStyle(
+    fontSize: 18,
+    shadows: [
+      Shadow(
+        color: Color(0x89000000),
+        offset: Offset(0, 0.1),
+        blurRadius: 1,
+      ),
+    ],
+    fontFamily: "Inter",
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle weatherTitStyle = TextStyle(
+    fontSize: 25,
+    shadows: [
+      Shadow(
+        color: Color(0x89000000),
+        offset: Offset(0, 0.3),
+        blurRadius: 1,
+      ),
+    ],
+    fontFamily: "Inter",
+    fontWeight: FontWeight.bold,
   );
 
   // Default padding values

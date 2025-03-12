@@ -23,7 +23,8 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-            builder: (context) => SignInScreen(authService: authService)),
+          builder: (context) => LoginPage(),
+        ),
       );
     });
   }
@@ -38,9 +39,13 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Image.asset('lib/assets/logo.png', width: 150), // Your logo
             SizedBox(height: 20),
-            Text(AppConstants.appDev,
-                style:
-                    TextStyle(fontSize: 16, color: Colors.white)), // App Devs
+            Text(
+              AppConstants.appDev,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ), // App Devs
             SizedBox(height: 20),
             CircularProgressIndicator(), // Loading indicator
           ],

@@ -1,14 +1,11 @@
 import 'package:bytebank/utils/constants.dart';
-import 'package:bytebank/widgets/button.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class TransactionForm extends StatefulWidget {
   final Function(String, double, DateTime) onSubmit;
-  final String? pageOrigin;
 
-  const TransactionForm({Key? key, required this.onSubmit, this.pageOrigin})
-      : super(key: key);
+  const TransactionForm({Key? key, required this.onSubmit}) : super(key: key);
 
   @override
   _TransactionFormState createState() => _TransactionFormState();
@@ -102,16 +99,16 @@ class _TransactionFormState extends State<TransactionForm> {
   }
 
   ableDisableDatePicker() {
-    if (widget.pageOrigin == 'dashboard') {
-      setState(() {
-        _isDatePickerEnabled = true;
-      });
-    } else {
-      setState(() {
-        _isDatePickerEnabled = false;
-        _selectedDate = DateTime.now();
-      });
-    }
+    // if (widget.pageOrigin == 'dashboard') {
+    //   setState(() {
+    //     _isDatePickerEnabled = true;
+    //   });
+    // } else {
+    //   setState(() {
+    //     _isDatePickerEnabled = false;
+    //     _selectedDate = DateTime.now();
+    //   });
+    // }
   }
 
   @override
@@ -228,27 +225,10 @@ class _TransactionFormState extends State<TransactionForm> {
           ),
           SizedBox(height: 24),
           ElevatedButton(
-            onPressed: _isSubmitting ? null : () => _submitForm(),
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              padding: EdgeInsets.symmetric(
-                vertical: 15,
-                horizontal: 80,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(9),
-              ),
-              backgroundColor: AppConstants.baseBlueBytebank,
-            ),
+            onPressed: _isSubmitting ? null : _submitForm,
             child: _isSubmitting
-                ? CircularProgressIndicator()
-                : Text(
-                    'Concluir transação',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: AppConstants.submitButtonText,
-                    ),
-                  ),
+                ? CircularProgressIndicator(color: Colors.white)
+                : Text("Submit"),
           ),
         ],
       ),
