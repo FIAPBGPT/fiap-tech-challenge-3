@@ -30,6 +30,7 @@ class _StatementState extends State<Statement> {
   int _filterMode = 0;
   IconData _sortingIcon = Icons.arrow_downward;
   IconData _filteringIcon = Icons.sync_alt;
+  bool _loadingList = false;
   bool? _loading;
   bool _fileUploaded = false;
 
@@ -54,48 +55,35 @@ class _StatementState extends State<Statement> {
         _sortingIcon = Icons.arrow_upward;
       }
 
-      _filteredTransactions.sort((a, b) {
-        return b['date'].compareTo(a['date']) * _sortDirection;
-      });
+      _applySortDirection();
     });
   }
 
-  // Icons.sync_alt, Icons.west, Icons.east
-  void _filterTransactions() {
-    setState(() {
-      if (_filterMode == 0) {
-        _filterMode = 1;
-        _filteringIcon = Icons.east;
-
-        _filteredTransactions = _transactions
-            .where((transaction) => transaction['amount'] > 0)
-            .toList();
-      } else if (_filterMode == 1) {
-        _filterMode = -1;
-        _filteringIcon = Icons.west;
-
-        _filteredTransactions = _transactions
-            .where((transaction) => transaction['amount'] < 0)
-            .toList();
-      } else {
-        _filterMode = 0;
-        _filteringIcon = Icons.sync_alt;
-        _filteredTransactions = _transactions.toList();
-      }
+  void _applySortDirection() {
+    _filteredTransactions.sort((a, b) {
+      return b['date'].compareTo(a['date']) * _sortDirection;
     });
   }
 
   @override
   void initState() {
     super.initState();
+    _reloadTransactions();
+  }
+
+  Future<void> _reloadTransactions() async {
+    setState(() => _loadingList = true);
+
+    await Future.delayed(Duration(seconds: 1));
 
     _loadTransactions().then((response) {
       setState(() {
+        _loadingList = false;
         _transactions = response;
         _filteredTransactions = _transactions.toList();
-      });
 
-      _sortTransactions();
+        _applySortDirection();
+      });
     });
   }
 
@@ -192,84 +180,121 @@ class _StatementState extends State<Statement> {
                     ),
                   ),
                 ),
-
-                // Sort Button
-                CustomButton(
-                  onPressed: _sortTransactions,
-                  type: ButtonType.icon,
-                  icon: _sortingIcon,
-                  color: AppConstants.baseBlueBytebank,
-                ),
-
-                // Filter Button
-                CustomButton(
-                  onPressed: _filterTransactions,
-                  type: ButtonType.icon,
-                  icon: _filteringIcon,
-                  color: AppConstants.baseBlueBytebank,
-                ),
+                Builder(builder: (context) {
+                  if (_loadingList) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: AppConstants.baseBlueBytebank,
+                        strokeWidth: 3,
+                      ),
+                    );
+                  } else {
+                    // Filter Button
+                    return Row(
+                      children: [
+                        // Sort Button
+                        CustomButton(
+                          onPressed: _sortTransactions,
+                          type: ButtonType.icon,
+                          icon: _sortingIcon,
+                          color: AppConstants.baseBlueBytebank,
+                        ),
+                        CustomButton(
+                          onPressed: _reloadTransactions,
+                          type: ButtonType.icon,
+                          icon: Icons.autorenew,
+                          color: AppConstants.baseBlueBytebank,
+                        ),
+                      ],
+                    );
+                  }
+                }),
               ],
             ),
 
             // Items
-            ListView.builder(
-              padding: EdgeInsets.all(0),
-              itemCount: _filteredTransactions.length,
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
+            Builder(builder: (context) {
+              if (_filteredTransactions.length > 0) {
                 return Column(
                   children: [
-                    SizedBox(height: 12),
-                    StatementItem(
-                      transaction: _filteredTransactions[index],
+                    ListView.builder(
+                      padding: EdgeInsets.all(0),
+                      itemCount: _filteredTransactions.length.clamp(0, 3),
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            SizedBox(height: 12),
+                            StatementItem(
+                              transaction: _filteredTransactions[index],
+                            ),
+                          ],
+                        );
+                      },
                     ),
+
+                    // Space
+                    SizedBox(height: 15),
+
+                    Builder(builder: (context) {
+                      List<TextButton> buttons = [];
+
+                      if (_loading == true) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: AppConstants.baseGreenBytebank,
+                            strokeWidth: 3,
+                          ),
+                        );
+                      }
+
+                      if (!_fileUploaded) {
+                        buttons = [
+                          TextButton(
+                            onPressed: _uploadFile,
+                            child: Text('Exportar', style: footerLinksStyle),
+                          )
+                        ];
+                      } else {
+                        buttons = [
+                          TextButton(
+                            onPressed: _downloadFile,
+                            child: Text('Baixar', style: footerLinksStyle),
+                          ),
+                          TextButton(
+                            onPressed: _deleteFile,
+                            child:
+                                Text('Apagar arquivo', style: footerLinksStyle),
+                          )
+                        ];
+                      }
+
+                      // Footer Text Buttons
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: buttons,
+                      );
+                    })
                   ],
                 );
-              },
-            ),
-
-            // Space
-            SizedBox(height: 15),
-
-            Builder(builder: (context) {
-              List<TextButton> buttons = [];
-
-              if (_loading == true) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    color: AppConstants.baseGreenBytebank,
-                    strokeWidth: 3,
-                  ),
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 15),
+                    Text(
+                      'Nenhum transação ainda.',
+                      style: TextStyle(
+                        color: AppConstants.additionalInfoColor,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.center,
+                    )
+                  ],
                 );
               }
-
-              if (!_fileUploaded) {
-                buttons = [
-                  TextButton(
-                    onPressed: _uploadFile,
-                    child: Text('Exportar', style: footerLinksStyle),
-                  )
-                ];
-              } else {
-                buttons = [
-                  TextButton(
-                    onPressed: _downloadFile,
-                    child: Text('Baixar', style: footerLinksStyle),
-                  ),
-                  TextButton(
-                    onPressed: _deleteFile,
-                    child: Text('Apagar arquivo', style: footerLinksStyle),
-                  )
-                ];
-              }
-
-              // Footer Text Buttons
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: buttons,
-              );
-            })
+            }),
           ],
         ),
       ),
