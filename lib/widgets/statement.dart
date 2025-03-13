@@ -219,7 +219,7 @@ class _StatementState extends State<Statement> {
                   children: [
                     ListView.builder(
                       padding: EdgeInsets.all(0),
-                      itemCount: _filteredTransactions.length.clamp(0, 3),
+                      itemCount: _filteredTransactions.length.clamp(0, 9),
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
