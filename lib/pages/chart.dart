@@ -33,8 +33,8 @@ class ResumoTransacoesPage extends StatelessWidget {
                         titleStyle: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white),
                       );
                     }).toList(),
-                    sectionsSpace: 2, // Espaço entre fatias
-                    centerSpaceRadius: 40, // Espaço central
+                    sectionsSpace: 2,
+                    centerSpaceRadius: 40, 
                   ),
                 ),
               ),

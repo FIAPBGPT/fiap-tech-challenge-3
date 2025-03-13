@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 enum ButtonType { elevated, outlined, text, icon }
 
 class CustomButton extends StatelessWidget {
-  final text;
+  final dynamic text;
   final onPressed;
   final ButtonType type; // Defines button type
   final Color? color; // Custom button color
@@ -12,7 +12,7 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton({
     super.key,
-    required this.text,
+    this.text = '',
     required this.onPressed,
     this.type = ButtonType.elevated, // Default type is ElevatedButton
     this.color,
@@ -22,8 +22,10 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool renderText = text.runtimeType is String && text.isNotEmpty;
+
     Widget buttonChild = icon != null
-        ? text != ''
+        ? renderText
             ? Row(
                 mainAxisSize: MainAxisSize.min,
                 children: iconOnRight
