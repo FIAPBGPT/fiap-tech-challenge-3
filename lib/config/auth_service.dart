@@ -29,4 +29,16 @@ class AuthService {
 
     return false;
   }
+
+  // Method to retrieve token from SharedPreferences
+  Future<String?> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  // Method to retrieve userId from SharedPreferences
+  Future<String?> getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_id');
+  }
 }
