@@ -58,32 +58,6 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 16),
             ],
           )
-
-
-
-            // Text(
-            //   'Bem-vindo ao ByteBank App',
-            //   style: TextStyle(fontSize: 21),
-            //   textAlign: TextAlign.center,
-            // ),
-            // SizedBox(height: 45),
-            // CustomButton(
-            //   text: 'Já tenho conta',
-            //   onPressed: () {
-            //     Navigator.pushNamed(context, Routes.signIn);
-            //   },
-            //   type: ButtonType.elevated,
-            //   color: AppConstants.baseBlackBytebank,
-            // ),
-            // SizedBox(height: 15),
-            // CustomButton(
-            //   text: 'Abrir conta',
-            //   onPressed: () {
-            //     Navigator.pushNamed(context, Routes.signUp);
-            //   },
-            //   type: ButtonType.outlined,
-            //   color: AppConstants.baseBlackBytebank,
-            // )
           ],
         ),
       ),
