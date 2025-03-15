@@ -139,7 +139,7 @@ class DashboardPage extends StatelessWidget {
                   //   children: [GridScreen(data: userData)],
                   // ),
 
-                  Container(
+                  SizedBox(
                     height: 500,
                     child: DynamicDataTable(
                       data: users,
@@ -149,7 +149,7 @@ class DashboardPage extends StatelessWidget {
                       onDelete: _delete,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: 520,
                     width: double.infinity,
                     child: TransactionCard(
@@ -204,7 +204,8 @@ class DashboardPage extends StatelessWidget {
                    * The Statement Widget
                    * ---------------------------
                    */
-                  Statement()
+                  Statement(),
+                  CreditCardWidget()
                 ],
               ),
             ),
