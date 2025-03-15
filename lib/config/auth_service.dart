@@ -15,11 +15,13 @@ class AuthService {
       if (response.data['message'] == 'Usuário Autenticado com Sucesso!') {
         String token = response.data['result']['token'];
         String userId = response.data['result']['user_id'];
+        String name = response.data['result']['username'];
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
 
         await prefs.setString('token', token);
         await prefs.setString('user_id', userId);
+        await prefs.setString('name', name);
 
         return true;
       }
