@@ -50,6 +50,8 @@ dependencies:
   weather: ^3.1.1
   flutter_dotenv: ^5.2.1
   intl: any
+  path_provider: ^2.1.5
+  open_file_plus: ^3.4.1+1
 
   # dependency_overrides:
   # syncfusion_flutter_charts:
