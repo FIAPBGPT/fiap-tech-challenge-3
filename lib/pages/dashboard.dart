@@ -3,6 +3,7 @@ import 'package:bytebank/dialogs/register.dialog.dart';
 import 'package:bytebank/forms/transaction-form.dart';
 import 'package:bytebank/models/transaction.dart';
 import 'package:bytebank/widgets/balance_card.dart';
+import 'package:bytebank/widgets/card.dart';
 import 'package:bytebank/widgets/paginated-grid.dart';
 import 'package:bytebank/widgets/statement.dart';
 import 'package:bytebank/widgets/transaction_card.dart';
@@ -195,7 +196,8 @@ class DashboardPage extends StatelessWidget {
                    * ---------------------------
                    */
                   Statement(),
-                  BalanceCard()
+                  BalanceCard(),
+                  CreditCardWidget()
                 ],
               ),
             ),
