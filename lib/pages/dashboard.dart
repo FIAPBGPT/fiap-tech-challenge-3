@@ -205,7 +205,7 @@ class DashboardPage extends StatelessWidget {
                    * ---------------------------
                    */
                   Statement(),
-                  CreditCardWidget()
+                  // CreditCardWidget()
                 ],
               ),
             ),
