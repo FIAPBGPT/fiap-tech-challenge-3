@@ -78,7 +78,7 @@ class ColumnChart extends StatelessWidget {
     return barGroups;
   }
 
-  /// Configuração dos rótulos do eixo X
+  /// eixo X
   FlTitlesData _buildTitles() {
     return FlTitlesData(
       leftTitles: AxisTitles(
@@ -114,7 +114,7 @@ class ColumnChart extends StatelessWidget {
       ],
     );
   }
-  //Padronização das cores
+  //Padronização das cores gráfico de pizza
   Color _getColorForType(String tipo) {
     switch (tipo) {
       case "Crédito":

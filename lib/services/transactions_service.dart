@@ -1,28 +1,21 @@
 import 'package:bytebank/config/dio_client.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
 
 class TransactionsService {
   final DioClient _dioClient = DioClient();
 
-  // Future<List<dynamic>> loadTransactions() async {
-  //   String? userId = (await SharedPreferences.getInstance()).getString('user_id');
-  //   Response response = await _dioClient.dio.get('/$userId/transactions');
-  //   return response.data['result'] ?? [];
-  // }
-
   Future<List<Map<String, dynamic>>> loadTransactions() async {
     String? userId =
         (await SharedPreferences.getInstance()).getString('user_id');
     Response response = await _dioClient.dio.get('/$userId/transactions');
 
-    List<dynamic> transacoesJson = response.data['result'] ?? [];
+    List<dynamic> transacoes = response.data['result'] ?? [];
 
     // Se a API retornar vazia, usa o mock
-    return transacoesJson.isEmpty
+    return transacoes.isEmpty
         ? mockTransactions
-        : List<Map<String, dynamic>>.from(transacoesJson);
+        : List<Map<String, dynamic>>.from(transacoes);
   }
 
   Future<Map<String, double>> agruparValoresPorTipo(
@@ -39,7 +32,7 @@ class TransactionsService {
   Future<Map<DateTime, Map<String, double>>> agruparTransacoesPorMes(
       List<Map<String, dynamic>> transacoes) async {
     Map<DateTime, Map<String, double>> transacoesAgrupadas = {};
-
+    await Future.delayed(Duration(seconds: 2));
     for (var transacao in transacoes) {
       DateTime data = DateTime.parse(transacao['date']);
       DateTime mesAno = DateTime(data.year, data.month);
