@@ -1,5 +1,6 @@
 import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/pages/dashboard.dart';
+import 'package:bytebank/pages/main_dashboard.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
 import '../routes.dart';
@@ -40,7 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => DashboardPage(),
+          builder: (context) => MainDashboard(),
         ),
         (route) => false, // Removes all previous routes
       );
@@ -168,17 +169,19 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: () {
                         print('Esqueci a senha!');
                       },
-                      child: Text(
-                        'Esqueci a senha!',
-                        style: TextStyle(
-                          fontSize: 21,
-                          color: AppConstants.link,
-                          height: -1,
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppConstants.link,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            'Esqueci a senha!',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppConstants.link,
+                              height: -1,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppConstants.link,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          )),
                     ),
                   ],
                 ),

@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
         home: SplashScreen(),
         routes: {
-          Routes.dashboard: (context) => DashboardPage(),
+          Routes.dashboard: (context) => MainDashboard(),
           Routes.signIn: (context) => SignInScreen(authService: authService),
           Routes.signUp: (context) => SignUpScreen(),
           Routes.transactions: (context) => TransactionsPage(),
