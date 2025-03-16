@@ -37,12 +37,11 @@ class _ResumoTransacoesPageState extends State<ResumoTransacoesPage> {
                 // Após carregar as transações, agrupar os valores por tipo e mês
                 futureGraficoPizza =
                     _transactionsService.agruparValoresPorTipo(snapshot.data!);
-                futureGraficoBarra = _transactionsService
-                    .agruparTransacoesPorMes(snapshot.data!)
-                    .then((value) {
-                  print(value);
-                  return value;
-                });
+
+                futureGraficoBarra =  _transactionsService.agruparTransacoesPorMes(snapshot.data!);
+                // Future<Map<DateTime, Map<String, double>>> futureGraficoBarra =
+                //     _transactionsService.agruparTransacoesPorMes(snapshot.data!);
+
                 return Column(
                   children: [
                     FutureBuilder<Map<String, double>>(

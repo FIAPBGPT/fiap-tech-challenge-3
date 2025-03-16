@@ -117,13 +117,13 @@ class ColumnChart extends StatelessWidget {
   //Padronização das cores gráfico de pizza
   Color _getColorForType(String tipo) {
     switch (tipo) {
-      case "Crédito":
+      case "Crédito" || 'credito':
         return Colors.green;
-      case "Débito":
+      case "Débito" || 'debito':
         return Colors.red;
-      case "Pix":
+      case "Pix" || "pix":
         return Colors.blue;
-      case "Transferência":
+      case "Transferência" || 'transferencia':
         return Colors.purple;
       default:
         return Colors.grey;
