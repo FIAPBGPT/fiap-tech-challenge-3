@@ -11,12 +11,6 @@ class GraficoPizza extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double total = valores.values.reduce((a, b) => a + b);
-    List<Color> cores = [
-      AppConstants.baseOrangeBytebank,
-      AppConstants.baseGreenBytebank,
-      AppConstants.additionalInfoColor,
-      AppConstants.accentColor
-    ];
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -33,7 +27,7 @@ class GraficoPizza extends StatelessWidget {
                   return PieChartSectionData(
                     value: entry.value,
                     title: '${((entry.value / total) * 100).toStringAsFixed(1)}%',
-                    color: cores[index % cores.length],
+                    color: _getColorForType(entry.key), // Usando a função de cores
                     radius: 70,
                     titleStyle: TextStyle(
                       fontSize: 12,
@@ -51,11 +45,10 @@ class GraficoPizza extends StatelessWidget {
           Wrap(
             spacing: 10,
             children: valores.keys.map((tipo) {
-              int index = valores.keys.toList().indexOf(tipo);
               return Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(width: 10, height: 10, color: cores[index % cores.length]),
+                  Container(width: 10, height: 10, color: _getColorForType(tipo)), // Usando a função de cores
                   SizedBox(width: 5),
                   Text('$tipo - ${valores[tipo]!.toInt()}'),
                 ],
@@ -65,5 +58,21 @@ class GraficoPizza extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  /// Função para retornar a cor do tipo
+  Color _getColorForType(String tipo) {
+    switch (tipo) {
+      case "Crédito":
+        return Colors.green;
+      case "Débito":
+        return Colors.red;
+      case "Pix":
+        return Colors.blue;
+      case "Transferência":
+        return Colors.purple;
+      default:
+        return Colors.grey;
+    }
   }
 }

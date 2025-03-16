@@ -21,7 +21,7 @@ class ColumnChart extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
             ),
           ),
-          
+
           // O gráfico de colunas
           AspectRatio(
             aspectRatio: 1.5,
@@ -32,6 +32,23 @@ class ColumnChart extends StatelessWidget {
                 borderData: FlBorderData(show: false),
                 gridData: FlGridData(show: false),
               ),
+            ),
+          ),
+
+          // Legenda
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildLegendItem(Colors.green, 'Crédito'),
+                SizedBox(width: 16),
+                _buildLegendItem(Colors.red, 'Débito'),
+                SizedBox(width: 16),
+                _buildLegendItem(Colors.blue, 'Pix'),
+                SizedBox(width: 16),
+                _buildLegendItem(Colors.purple, 'Transferência'),
+              ],
             ),
           ),
         ],
@@ -47,8 +64,8 @@ class ColumnChart extends StatelessWidget {
     dadosAgrupados.forEach((mes, transacoes) {
       List<BarChartRodData> bars = transacoes.entries.map((entry) {
         return BarChartRodData(
-          toY: entry.value, // Valor da transação
-          color: _getColorForType(entry.key), // Cor baseada no tipo
+          toY: entry.value,
+          color: _getColorForType(entry.key),
           width: 12,
           borderRadius: BorderRadius.circular(4),
         );
@@ -83,7 +100,21 @@ class ColumnChart extends StatelessWidget {
     );
   }
 
-  /// Define cores para cada tipo de transação
+  /// Legenda
+  Widget _buildLegendItem(Color color, String label) {
+    return Row(
+      children: [
+        Container(
+          width: 10,
+          height: 10,
+          color: color,
+        ),
+        SizedBox(width: 5),
+        Text(label),
+      ],
+    );
+  }
+  //Padronização das cores
   Color _getColorForType(String tipo) {
     switch (tipo) {
       case "Crédito":
@@ -98,4 +129,5 @@ class ColumnChart extends StatelessWidget {
         return Colors.grey;
     }
   }
+
 }
