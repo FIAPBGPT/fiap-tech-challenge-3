@@ -140,6 +140,7 @@ class DashboardPage extends StatelessWidget {
                         userId: '67d20e3fea00f3c7cbf560af',
                         pageName: 'DashboardPage',
                         formMode: 'add',
+                        doExtraAction: () => print('Extra Action'),
                       ),
                     ),
                   ),

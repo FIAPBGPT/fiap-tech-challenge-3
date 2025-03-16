@@ -25,27 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _errorMessage = '';
   bool _termsAccepted = false;
 
-  // void _register() async {
-  //   if (!_termsAccepted) {
-  //     setState(() => _errorMessage = 'É necessário aceitar o termos!');
-
-  //     return;
-  //   }
-
-  //   try {
-  //     await _auth.createUserWithEmailAndPassword(
-  //       email: _emailController.text,
-  //       password: _passwordController.text,
-  //     );
-  //   } catch (e) {
-  //     setState(() {
-  //       _errorMessage = e.toString();
-  //     });
-  //   }
-  // }
-
   void _register() async {
-    print(_isLoading);
     setState(() => _isLoading = true);
     if (!_termsAccepted) {
       setState(() => _isLoading = false);
