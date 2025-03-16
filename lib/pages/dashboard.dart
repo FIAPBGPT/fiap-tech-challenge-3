@@ -2,6 +2,7 @@ import 'package:bytebank/dialogs/login.dialog.dart';
 import 'package:bytebank/dialogs/register.dialog.dart';
 import 'package:bytebank/forms/transaction-form.dart';
 import 'package:bytebank/models/transaction.dart';
+import 'package:bytebank/pages/chart.dart';
 import 'package:bytebank/widgets/balance_card.dart';
 import 'package:bytebank/widgets/card.dart';
 import 'package:bytebank/widgets/paginated-grid.dart';
@@ -123,6 +124,18 @@ class DashboardPage extends StatelessWidget {
                         color: AppConstants.baseBlackBytebank,
                       ),
                       SizedBox(height: 10),
+
+                      SizedBox(height: 10),
+                      CustomButton(
+                        text: 'Gráficos',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResumoTransacoesPage()),
+                        ),
+                        type: ButtonType.outlined,
+                        color: AppConstants.baseBlackBytebank,
+                      ),
                     ],
                   ),
 
