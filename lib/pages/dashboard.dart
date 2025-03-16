@@ -2,6 +2,9 @@ import 'package:bytebank/dialogs/login.dialog.dart';
 import 'package:bytebank/dialogs/register.dialog.dart';
 import 'package:bytebank/forms/transaction-form.dart';
 import 'package:bytebank/models/transaction.dart';
+import 'package:bytebank/pages/chart.dart';
+import 'package:bytebank/widgets/balance_card.dart';
+import 'package:bytebank/widgets/card.dart';
 import 'package:bytebank/widgets/paginated-grid.dart';
 import 'package:bytebank/widgets/statement.dart';
 import 'package:bytebank/widgets/transaction_card.dart';
@@ -121,6 +124,18 @@ class DashboardPage extends StatelessWidget {
                         color: AppConstants.baseBlackBytebank,
                       ),
                       SizedBox(height: 10),
+
+                      SizedBox(height: 10),
+                      CustomButton(
+                        text: 'Gráficos',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ResumoTransacoesPage()),
+                        ),
+                        type: ButtonType.outlined,
+                        color: AppConstants.baseBlackBytebank,
+                      ),
                     ],
                   ),
 
@@ -128,7 +143,7 @@ class DashboardPage extends StatelessWidget {
                   //   children: [GridScreen(data: userData)],
                   // ),
 
-                  Container(
+                  SizedBox(
                     height: 500,
                     child: DynamicDataTable(
                       data: users,
@@ -138,7 +153,7 @@ class DashboardPage extends StatelessWidget {
                       onDelete: _delete,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: 520,
                     width: double.infinity,
                     child: TransactionCard(
@@ -193,7 +208,9 @@ class DashboardPage extends StatelessWidget {
                    * The Statement Widget
                    * ---------------------------
                    */
-                  Statement()
+                  Statement(),
+                  BalanceCard(),
+                  CreditCardWidget()
                 ],
               ),
             ),

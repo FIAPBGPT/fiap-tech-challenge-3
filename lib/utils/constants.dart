@@ -16,6 +16,7 @@ class AppConstants {
   static const Color baseGreenBytebank = Color(0xff47a138);
   static const Color baseOrangeBytebank = Color(0xffff5031);
   static const Color baseBlackBytebank = Color(0xff000000);
+  static const Color baseBackgroundBytebank = Color(0xffE4EDE3);
   static const Color baseDarkGreyBytebank = Color(0xffcbcbcb);
 
   static const Color primary = Colors.black;
@@ -46,6 +47,44 @@ class AppConstants {
   static const TextStyle bodyTextStyle = TextStyle(
     fontSize: 14,
     color: Colors.black87,
+  );
+
+  static const TextStyle menuTextStyle = TextStyle(
+    fontSize: 18,
+    fontFamily: "Inter",
+    fontWeight: FontWeight.w400,
+    color: primary,
+  );
+
+  static const TextStyle weatherTextStyle = TextStyle(
+    fontSize: 16,
+    fontFamily: "Inter",
+  );
+
+  static const TextStyle weatherSubtitStyle = TextStyle(
+    fontSize: 18,
+    shadows: [
+      Shadow(
+        color: Color(0x89000000),
+        offset: Offset(0, 0.1),
+        blurRadius: 1,
+      ),
+    ],
+    fontFamily: "Inter",
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle weatherTitStyle = TextStyle(
+    fontSize: 25,
+    shadows: [
+      Shadow(
+        color: Color(0x89000000),
+        offset: Offset(0, 0.3),
+        blurRadius: 1,
+      ),
+    ],
+    fontFamily: "Inter",
+    fontWeight: FontWeight.bold,
   );
 
   // Default padding values
