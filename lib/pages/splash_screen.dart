@@ -1,6 +1,5 @@
 import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/pages/login.dart';
-import 'package:bytebank/pages/sign_in_screen.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:async'; // For the delay

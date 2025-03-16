@@ -8,12 +8,12 @@ class TransactionCard extends StatelessWidget {
   final double elevation;
 
   const TransactionCard({
-    Key? key,
+    super.key,
     this.title, // Optional title
     required this.child, // Required child widget
     this.padding = const EdgeInsets.all(16.0),
     this.elevation = 4.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

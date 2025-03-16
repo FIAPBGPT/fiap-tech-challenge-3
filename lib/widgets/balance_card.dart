@@ -72,8 +72,9 @@ class _BalanceCardState extends State<BalanceCard> {
     ).format(_filteredTransactions);
 
     String formatName(String? name) {
-      if (name == null || name.trim().isEmpty)
+      if (name == null || name.trim().isEmpty) {
         return ''; // Verifica se é nulo ou vazio
+      }
       return name
           .trim() // Remove espaços extras no início e no fim
           .split(RegExp(r'\s+')) // Divide considerando múltiplos espaços

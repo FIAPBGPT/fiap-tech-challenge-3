@@ -1,5 +1,4 @@
 import 'package:bytebank/config/auth_service.dart';
-import 'package:bytebank/pages/dashboard.dart';
 import 'package:bytebank/pages/main_dashboard.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';

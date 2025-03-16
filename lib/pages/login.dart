@@ -1,6 +1,4 @@
 import 'package:bytebank/config/auth_service.dart';
-import 'package:bytebank/dialogs/login.dialog.dart';
-import 'package:bytebank/dialogs/register.dialog.dart';
 import 'package:bytebank/routes.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:bytebank/widgets/button.dart';

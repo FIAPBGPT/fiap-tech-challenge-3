@@ -26,10 +26,10 @@ class _StatementState extends State<Statement> {
 
   Future<List<dynamic>> _loadTransactions() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? user_id = prefs.getString('user_id');
+    String? userId = prefs.getString('user_id');
 
     Response response = await _dioClient.dio.get(
-      '/$user_id/transactions',
+      '/$userId/transactions',
     );
 
     return response.data['result'];

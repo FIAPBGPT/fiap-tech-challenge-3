@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class TransactionForm extends StatefulWidget {
   final Function(String, double, DateTime) onSubmit;
 
-  const TransactionForm({Key? key, required this.onSubmit}) : super(key: key);
+  const TransactionForm({super.key, required this.onSubmit});
 
   @override
   _TransactionFormState createState() => _TransactionFormState();
@@ -156,8 +156,9 @@ class _TransactionFormState extends State<TransactionForm> {
               ),
             ),
             validator: (value) {
-              if (value == null || value.isEmpty)
+              if (value == null || value.isEmpty) {
                 return "Please enter an amount";
+              }
               if (double.tryParse(value) == null) return "Enter a valid number";
               return null;
             },

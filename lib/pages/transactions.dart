@@ -40,6 +40,7 @@ class TransactionsPage extends StatelessWidget {
                   itemCount: provider.transactions.length,
                   itemBuilder: (context, index) {
                     Transaction tx = provider.transactions[index];
+                    return null;
                     // return TransactionCard(
                     //   transaction: tx,
                     //   onDelete: () => provider.removeTransaction(tx.id),

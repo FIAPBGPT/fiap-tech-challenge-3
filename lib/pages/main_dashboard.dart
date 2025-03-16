@@ -98,7 +98,7 @@ class MainDashboard extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15.0),
-                  child: Container(
+                  child: SizedBox(
                     width: double.infinity,
                     child: Statement(),
                   ),
