@@ -12,6 +12,15 @@
 .swiftpm/
 migrate_working_dir/
 
+# Linux
+linux/flutter/generated_*
+
+# macOS
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Windows
+windows/flutter/generated_*
+
 # IntelliJ related
 *.iml
 *.ipr
