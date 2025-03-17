@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:bytebank/config/dio_client.dart';
 import 'package:bytebank/utils/constants.dart';
@@ -8,7 +9,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:open_file_plus/open_file_plus.dart';
+// import 'package:open_file_plus/open_file_plus.dart';
 
 const String firebaseAppName = 'tech-challenge-fase-3-abc';
 
