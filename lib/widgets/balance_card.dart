@@ -16,7 +16,7 @@ class _BalanceCardState extends State<BalanceCard> {
   bool _isVisible = false; // Estado para controlar se o saldo está visível
   final DioClient _dioClient = DioClient();
   List<dynamic> _transactions = [];
-  late double _filteredTransactions;
+  double _filteredTransactions = 0.0; // Initialize with 0.0, no need for 'late'
   late String? name = '';
 
   Future<List<dynamic>> _loadTransactions() async {
@@ -32,23 +32,8 @@ class _BalanceCardState extends State<BalanceCard> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    double calculateBalance(List<Map<String, dynamic>> transactions) {
-      if (transactions.isEmpty) return 0.0;
-
-      List<Map<String, dynamic>> transactionsFiltered = transactions
-          .where((transaction) => transaction['transactionType'] != 'credito')
-          .toList();
-
-      double balance = transactionsFiltered.fold(0.0, (sum, transaction) {
-        int amountMultiplier =
-            transaction['transactionType'] == 'deposito' ? 1 : -1;
-        return sum + (transaction['amount'] * amountMultiplier);
-      });
-
-      return balance;
-    }
-
+  void initState() {
+    super.initState();
     _loadTransactions().then((response) {
       setState(() {
         _transactions = response;
@@ -56,7 +41,26 @@ class _BalanceCardState extends State<BalanceCard> {
             calculateBalance(_transactions.cast<Map<String, dynamic>>());
       });
     });
+  }
 
+  double calculateBalance(List<Map<String, dynamic>> transactions) {
+    if (transactions.isEmpty) return 0.0;
+
+    List<Map<String, dynamic>> transactionsFiltered = transactions
+        .where((transaction) => transaction['transactionType'] != 'credito')
+        .toList();
+
+    double balance = transactionsFiltered.fold(0.0, (sum, transaction) {
+      int amountMultiplier =
+          transaction['transactionType'] == 'deposito' ? 1 : -1;
+      return sum + (transaction['amount'] * amountMultiplier);
+    });
+
+    return balance;
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // Inicializa a formatação de datas
     initializeDateFormatting('pt_BR', null);
 

@@ -27,6 +27,7 @@ class _ResumoTransacoesPageState extends State<ResumoTransacoesPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 30),
             FutureBuilder<List<Map<String, dynamic>>>(
               future: _transactionsFuture,
               builder: (context, snapshot) {
@@ -38,7 +39,8 @@ class _ResumoTransacoesPageState extends State<ResumoTransacoesPage> {
                 futureGraficoPizza =
                     _transactionsService.agruparValoresPorTipo(snapshot.data!);
 
-                futureGraficoBarra =  _transactionsService.agruparTransacoesPorMes(snapshot.data!);
+                futureGraficoBarra = _transactionsService
+                    .agruparTransacoesPorMes(snapshot.data!);
                 // Future<Map<DateTime, Map<String, double>>> futureGraficoBarra =
                 //     _transactionsService.agruparTransacoesPorMes(snapshot.data!);
 
@@ -49,7 +51,7 @@ class _ResumoTransacoesPageState extends State<ResumoTransacoesPage> {
                       builder: (context, snapshot) {
                         if (!snapshot.hasData)
                           // ignore: curly_braces_in_flow_control_structures
-                          return CircularProgressIndicator();
+                          return Center(child: CircularProgressIndicator());
                         return GraficoPizza(valores: snapshot.data!);
                       },
                     ),
@@ -61,7 +63,7 @@ class _ResumoTransacoesPageState extends State<ResumoTransacoesPage> {
                       future: futureGraficoBarra,
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
-                          return CircularProgressIndicator();
+                          return Center(child: CircularProgressIndicator());
                         }
                         return ColumnChart(dadosAgrupados: snapshot.data!);
                       },

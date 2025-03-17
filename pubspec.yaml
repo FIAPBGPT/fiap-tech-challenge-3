@@ -96,6 +96,7 @@ flutter:
     - lib/assets/login-form-image.png
     - lib/assets/animations/financial_animation.json
     - lib/assets/images/balance_card.png
+    - lib/assets/images/noaa-ZVhm6rEKEX8-unsplash.jpg
     - assets/images/
     - .env
     - lib/assets/logo_home.png
