@@ -4,36 +4,11 @@ import 'package:bytebank/utils/constants.dart';
 import 'package:bytebank/widgets/balance_card.dart';
 import 'package:bytebank/widgets/card.dart';
 import 'package:bytebank/widgets/menu/drawer.dart';
-import 'package:bytebank/widgets/paginated-grid.dart';
 import 'package:bytebank/widgets/statement.dart';
 import 'package:bytebank/widgets/transaction_card.dart';
 import 'package:flutter/material.dart';
 
 class MainDashboard extends StatelessWidget {
-  final List<Map<String, dynamic>> userData = [
-    {"id": 1, "name": "John Doe", "email": "john@example.com"},
-    {"id": 2, "name": "Jane Smith", "email": "jane@example.com"},
-    {"id": 3, "name": "Bob Johnson", "email": "bob@example.com"},
-  ];
-  final List<Map<String, dynamic>> users = [
-    {"ID": 1, "Name": "Alice Brown", "Email": "alice@example.com"},
-    {"ID": 2, "Name": "Bob Smith", "Email": "bob@example.com"},
-    {"ID": 3, "Name": "Charlie Johnson", "Email": "charlie@example.com"},
-    {"ID": 4, "Name": "David Lee", "Email": "david@example.com"},
-  ];
-
-  void _edit(Map<String, dynamic> user) {
-    print("Edit user: ${user["Name"]}");
-  }
-
-  void _view(Map<String, dynamic> user) {
-    print("View user: ${user["Name"]}");
-  }
-
-  void _delete(Map<String, dynamic> user) {
-    print("Delete user: ${user["Name"]}");
-  }
-
   MainDashboard({super.key});
   @override
   Widget build(BuildContext context) {
@@ -72,16 +47,6 @@ class MainDashboard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 BalanceCard(),
-                SizedBox(
-                  height: 500,
-                  child: DynamicDataTable(
-                    data: users,
-                    columnNames: ["ID", "Name", "Email"], // Dynamic Columns
-                    onEdit: _edit,
-                    onView: _view,
-                    onDelete: _delete,
-                  ),
-                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: SizedBox(

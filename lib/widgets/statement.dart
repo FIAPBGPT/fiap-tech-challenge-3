@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bytebank/config/dio_client.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:bytebank/widgets/button.dart';
