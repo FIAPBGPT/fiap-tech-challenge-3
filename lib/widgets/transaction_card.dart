@@ -31,7 +31,7 @@ class TransactionCard extends StatelessWidget {
           children: [
             if (title != null) // Display title only if it's provided
               Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
+                padding: const EdgeInsets.only(bottom: 24.0),
                 child: Text(
                   title!,
                   style: TextStyle(
