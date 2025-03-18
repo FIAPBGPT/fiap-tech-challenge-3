@@ -62,7 +62,7 @@ class _WeatherWidgetState extends State<WeatherWidget> {
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Container(
-          height: 300,
+          height: 350,
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -167,92 +167,101 @@ class _WeatherWidgetState extends State<WeatherWidget> {
       );
     }
 
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _currentWeather!.areaName ?? 'Localização desconhecida',
-                    textAlign: TextAlign.center,
-                    style: AppConstants.weatherTitStyle.copyWith(
-                      color: AppConstants.baseBlueBytebank,
-                    ),
+    return SingleChildScrollView(
+      // Wrapping the entire content in SingleChildScrollView to avoid overflow
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Wrap these in Expanded to prevent overflow
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _currentWeather!.areaName ?? 'Localização desconhecida',
+                        textAlign: TextAlign.center,
+                        style: AppConstants.weatherTitStyle.copyWith(
+                          color: AppConstants.baseBlueBytebank,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        _currentWeather!.country ?? '',
+                        style: AppConstants.weatherSubtitStyle.copyWith(
+                          color: AppConstants.baseBlueBytebank,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    _currentWeather!.country ?? '',
-                    style: AppConstants.weatherSubtitStyle.copyWith(
-                      color: AppConstants.baseBlueBytebank,
-                    ),
+                ),
+                // Wrap these in Expanded to prevent overflow
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '${_currentWeather!.temperature?.celsius?.toStringAsFixed(1)}°C',
+                        style: AppConstants.weatherTitStyle.copyWith(
+                            color: AppConstants.baseBackgroundBytebank),
+                      ),
+                      Text(
+                        _currentWeather!.weatherDescription ?? '',
+                        style: AppConstants.weatherSubtitStyle.copyWith(
+                            color: AppConstants.baseBackgroundBytebank),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    '${_currentWeather!.temperature?.celsius?.toStringAsFixed(1)}°C',
-                    style: AppConstants.weatherTitStyle
-                        .copyWith(color: AppConstants.baseBackgroundBytebank),
+                ),
+              ],
+            ),
+            const Divider(color: Color(0xFF4D4D4D), height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _buildWeatherInfo(
+                  'Umidade',
+                  '${_currentWeather!.humidity?.toStringAsFixed(0)}%',
+                  Icons.water_drop_outlined,
+                ),
+                _buildWeatherInfo(
+                  'Vento',
+                  '${_currentWeather!.windSpeed?.toStringAsFixed(1)} km/h',
+                  Icons.air,
+                ),
+                _buildWeatherInfo(
+                  'Sensação',
+                  '${_currentWeather!.tempFeelsLike?.celsius?.toStringAsFixed(1)}°C',
+                  Icons.thermostat_outlined,
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton.icon(
+                onPressed: _loadWeatherData,
+                icon: const Icon(Icons.refresh,
+                    color: AppConstants.baseBlueBytebank, size: 20),
+                label: Text(
+                  'Atualizar',
+                  style: AppConstants.weatherTextStyle.copyWith(
+                    color: AppConstants.baseBlueBytebank,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
-                  Text(
-                    _currentWeather!.weatherDescription ?? '',
-                    style: AppConstants.weatherSubtitStyle
-                        .copyWith(color: AppConstants.baseBackgroundBytebank),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Divider(color: Color(0xFF4D4D4D), height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _buildWeatherInfo(
-                'Umidade',
-                '${_currentWeather!.humidity?.toStringAsFixed(0)}%',
-                Icons.water_drop_outlined,
-              ),
-              _buildWeatherInfo(
-                'Vento',
-                '${_currentWeather!.windSpeed?.toStringAsFixed(1)} km/h',
-                Icons.air,
-              ),
-              _buildWeatherInfo(
-                'Sensação',
-                '${_currentWeather!.tempFeelsLike?.celsius?.toStringAsFixed(1)}°C',
-                Icons.thermostat_outlined,
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton.icon(
-              onPressed: _loadWeatherData,
-              icon: const Icon(Icons.refresh,
-                  color: AppConstants.baseBlueBytebank, size: 20),
-              label: Text(
-                'Atualizar',
-                style: AppConstants.weatherTextStyle.copyWith(
-                  color: AppConstants.baseBlueBytebank,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

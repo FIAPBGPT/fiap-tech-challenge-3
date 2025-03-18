@@ -36,7 +36,7 @@ class DrawerComponent extends StatelessWidget {
                         _navigateLink(
                             "Início",
                             () => Navigator.of(context)
-                                .pushReplacementNamed(Routes.home)),
+                                .pushReplacementNamed(Routes.main_dashboard)),
                         _navigateLink(
                             "Transações",
                             () => Navigator.of(context)

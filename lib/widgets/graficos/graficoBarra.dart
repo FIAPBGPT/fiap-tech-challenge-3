@@ -15,22 +15,29 @@ class ColumnChart extends StatelessWidget {
         children: [
           // Texto acima do gráfico
           Padding(
-            padding: const EdgeInsets.only(bottom: 8.0), // Espaçamento entre o texto e o gráfico
+            padding: const EdgeInsets.only(
+                bottom: 8.0), // Espaçamento entre o texto e o gráfico
             child: Text(
               "Distribuição por Mês",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
             ),
           ),
 
           // O gráfico de colunas
-          AspectRatio(
-            aspectRatio: 1.5,
-            child: BarChart(
-              BarChartData(
-                barGroups: _buildBarGroups(),
-                titlesData: _buildTitles(),
-                borderData: FlBorderData(show: false),
-                gridData: FlGridData(show: false),
+          Container(
+            height: 400, // Altura do gráfico (em pixels
+            child: AspectRatio(
+              aspectRatio: 1.5,
+              child: BarChart(
+                BarChartData(
+                  barGroups: _buildBarGroups(),
+                  titlesData: _buildTitles(),
+                  borderData: FlBorderData(show: false),
+                  gridData: FlGridData(show: false),
+                ),
               ),
             ),
           ),
@@ -51,6 +58,7 @@ class ColumnChart extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 50),
         ],
       ),
     );
@@ -92,7 +100,8 @@ class ColumnChart extends StatelessWidget {
             if (index >= dadosAgrupados.keys.length) return Container();
 
             DateTime mes = dadosAgrupados.keys.elementAt(index);
-            return Text(DateFormat('MMM').format(mes), style: TextStyle(fontSize: 12));
+            return Text(DateFormat('MMM').format(mes),
+                style: TextStyle(fontSize: 12));
           },
           reservedSize: 28,
         ),
@@ -114,6 +123,7 @@ class ColumnChart extends StatelessWidget {
       ],
     );
   }
+
   //Padronização das cores gráfico de pizza
   Color _getColorForType(String tipo) {
     switch (tipo) {
@@ -129,5 +139,4 @@ class ColumnChart extends StatelessWidget {
         return Colors.grey;
     }
   }
-
 }

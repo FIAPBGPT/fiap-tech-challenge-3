@@ -1,5 +1,6 @@
 import 'package:bytebank/config/auth_service.dart';
 import 'package:bytebank/pages/dashboard.dart';
+import 'package:bytebank/pages/main_dashboard.dart';
 import 'package:bytebank/utils/constants.dart';
 import 'package:flutter/material.dart';
 import '../routes.dart';
@@ -37,10 +38,17 @@ class _SignInScreenState extends State<SignInScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Login Realizado com Sucesso!')),
       );
+      // Navigator.pushAndRemoveUntil(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => DashboardPage(),
+      //   ),
+      //   (route) => false, // Removes all previous routes
+      // );
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => DashboardPage(),
+          builder: (context) => MainDashboard(),
         ),
         (route) => false, // Removes all previous routes
       );
